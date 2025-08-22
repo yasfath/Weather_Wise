@@ -18,7 +18,6 @@ const tempChartCanvas = document.getElementById('tempChart');
 
 let tempChart;
 
-// --- Geolocation helpers ---
 async function getCityNameFromCoords(lat, lon) {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=31d2f0b3ac2ca5b338288b02e207206c&units=metric`;
   const res = await fetch(url);
@@ -75,7 +74,6 @@ async function getWeather(city) {
 
     setBackground(weatherData.weather[0].description);
 
-    // Forecast
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=31d2f0b3ac2ca5b338288b02e207206c&units=metric`;
     const forecastRes = await fetch(forecastUrl);
     const forecastData = await forecastRes.json();
@@ -212,8 +210,6 @@ document.getElementById('mapBtn').addEventListener('click', () => {
 });
 
 
-
-// On page load: try geolocation first
 window.addEventListener('load', () => {
   requestLocationAndLoadWeather();
 });
@@ -237,8 +233,7 @@ function showMap() {
 
     // Create the map centered at user location
     var map = L.map("map").setView([lat, lon], 10);
-
-    // Add OpenStreetMap tiles
+    
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap",
     }).addTo(map);
@@ -266,4 +261,5 @@ function showMap() {
   function error() {
     alert("Unable to retrieve your location.");
   }
+
 }
